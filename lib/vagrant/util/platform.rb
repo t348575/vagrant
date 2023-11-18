@@ -70,7 +70,7 @@ module Vagrant
             @_wsl = false
             SilenceWarnings.silence! do
               # Find 'microsoft' in /proc/version indicative of WSL
-              if File.file?('/proc/version')
+              if File.file?('/proc/version') && !ENV["VAGRANT_WSL_NESTED_VIRTUALIZATION"]
                 osversion = File.open('/proc/version', &:gets)
                 if osversion.downcase.include?("microsoft")
                   @_wsl = true
